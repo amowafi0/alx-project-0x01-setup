@@ -1,12 +1,21 @@
 import Header from "@/components/layout/Header";
 import UserCard from "@/components/common/UserCard";
-import { UserProps } from "@/interfaces";
+import UserModal from "@/components/common/UserModal";
+import { UserProps, UserData } from "@/interfaces";
+import { useState } from "react";
 
 interface UsersPageProps {
   posts: UserProps[];
 }
 
 const Users: React.FC<UsersPageProps> = ({ posts }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [user, setUser] = useState<UserData | null>(null);
+
+  const handleAddUser = (newUser: UserData) => {
+    setUser({ ...newUser, id: posts.length + 1 });
+  };
+
   console.log(posts);
   return (
     <div className="min-h-screen bg-gray-50">
@@ -14,7 +23,10 @@ const Users: React.FC<UsersPageProps> = ({ posts }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Users</h1>
-          <button className="bg-blue-700 px-6 py-2 rounded-full text-white hover:bg-blue-800 transition-colors">
+          <button 
+            onClick={() => setModalOpen(true)}
+            className="bg-blue-700 px-6 py-2 rounded-full text-white hover:bg-blue-800 transition-colors"
+          >
             Add User
           </button>
         </div>
@@ -35,6 +47,10 @@ const Users: React.FC<UsersPageProps> = ({ posts }) => {
           ))}
         </div>
       </div>
+
+      {isModalOpen && (
+        <UserModal onClose={() => setModalOpen(false)} onSubmit={handleAddUser} />
+      )}
     </div>
   );
 };
