@@ -1,14 +1,18 @@
-const PostCard: React.FC = () => {
+import { PostProps } from "@/interfaces";
+
+const PostCard: React.FC<PostProps> = ({ title, body, userId, id }) => {
   return (
-    <div className="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-      <h3 className="text-lg font-semibold mb-2">Post Title</h3>
-      <p className="text-gray-600 mb-4">Post content preview...</p>
-      <div className="text-sm text-gray-500">
-        <span>Author: mowafi</span>
-        <span className="ml-4">Date: 2025-06-01</span>
+    <div className="max-w-xl mx-auto my-6 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <div className="mb-4">
+        <h2 className="text-2xl font-semibold text-gray-800">{title}</h2>
+      </div>
+      <p className="text-gray-600">{body}</p>
+      <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+        <span>User ID: {userId}</span>
+        <span>Post ID: {id}</span>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default PostCard;
